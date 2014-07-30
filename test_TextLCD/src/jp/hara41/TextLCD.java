@@ -7,6 +7,12 @@ import jp.nyatla.mimic.mbedjs.MbedJsException;
 import jp.nyatla.mimic.mbedjs.javaapi.*;
 
 public class TextLCD{
+	public enum LCDType {
+		LCD16x2,
+		LCD16x2B,
+		LCD20x2,
+		LCD20x4
+	}
 	private Mcu _mcu;
 	private DigitalOut _rs;
 	private DigitalOut _e;
@@ -23,7 +29,7 @@ public class TextLCD{
 	 * @param d1
 	 * @param d2
 	 * @param d3
-	 * @param type LCD‚Ì‹@í
+	 * @param type LCDï¿½ï¿½ï¿½@ï¿½ï¿½
 	 */
 	public TextLCD(Mcu mcu , int rs, int ee,
 	int d0, int d1, int d2, int d3,LCDType type)
@@ -58,17 +64,20 @@ public class TextLCD{
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (MbedJsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
 	/**
-	 * •¶š‚ğ1•¶š•\¦‚·‚é
-	 * @param c o—Í‚·‚é•¶š
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param c ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	public int putc(int c)
 	{
-		// ‰üsˆ—
+		// ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½
 		if(c == '\n'){
 			_column = 0;
 			_row ++;
@@ -89,7 +98,7 @@ public class TextLCD{
 		return c;
 	}
 	/**
-	 * ”CˆÓ‚ÌˆÊ’u‚ÉƒJ[ƒ\ƒ‹‚ğˆÚ“®‚·‚é
+	 * ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param column 
 	 * @param row
 	 */
@@ -98,7 +107,7 @@ public class TextLCD{
 		_row = row;
 	}
 	/**
-	 * •\¦‚ğÁ‚µ‚ÄƒJ[ƒ\ƒ‹‚ği0,0j‚ÉˆÚ“®‚·‚é
+	 * ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½i0,0ï¿½jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void cls()
 	{
@@ -113,7 +122,7 @@ public class TextLCD{
 		
 	}
 	/**
-	 * s‚Ì”‚ğ•Ô‚·
+	 * ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	public int rows()
@@ -129,7 +138,7 @@ public class TextLCD{
 		return 0;
 	}
 	/**
-	 * —ñ‚Ì”‚ğ•Ô‚·
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	public int columns(){
@@ -144,7 +153,7 @@ public class TextLCD{
 		return 0;
 	}
 	/**
-	 * •¶š‚ğ‘‚«‚ŞƒAƒhƒŒƒX‚ğŒˆ’è‚·‚é
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param column
 	 * @param row
 	 * @return
@@ -171,10 +180,10 @@ public class TextLCD{
 		return 0x80 + (row*0x40) + column;
 	}
 	/**
-	 * •¶š‚ğo—Í‚·‚é
-	 * @param column s 
-	 * @param row —ñ
-	 * @param c •¶š
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param column ï¿½s 
+	 * @param row ï¿½ï¿½
+	 * @param c ï¿½ï¿½ï¿½ï¿½
 	 */
 	void character(int column , int row , int c)
 	{
@@ -183,7 +192,7 @@ public class TextLCD{
 		writeData(c);
 	}
 	/**
-	 * 1ƒoƒCƒgo—Í‚·‚é
+	 * 1ï¿½oï¿½Cï¿½gï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param value
 	 */
 	void writeByte(int value){
@@ -208,7 +217,7 @@ public class TextLCD{
 		
 	}
 	/**
-	 * ƒRƒ}ƒ“ƒh‚ğo—Í
+	 * ï¿½Rï¿½}ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½oï¿½ï¿½
 	 * @param command
 	 */
 	void writeCommand(int command){
@@ -221,7 +230,7 @@ public class TextLCD{
 		writeByte(command);
 	}
 	/**
-	 * ƒf[ƒ^‚ğo—Í
+	 * ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½oï¿½ï¿½
 	 * @param data
 	 */
 	void writeData(int data){
