@@ -21,7 +21,7 @@ public class TextLCD{
 	private int _column;
 	private int _row;
 	/**
-	 * 
+	 * LCDディスプレイの表示
 	 * @param mcu
 	 * @param rs
 	 * @param ee
